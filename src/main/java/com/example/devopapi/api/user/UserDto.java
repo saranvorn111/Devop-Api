@@ -6,6 +6,6 @@ import lombok.Builder;
 public record UserDto(String name,
                       String gender,
                       String studentCardId,
-                      Boolean isStudent,
-                      Boolean isDeleted) {
+                      boolean isStudent,
+                      boolean isDeleted) {
 }

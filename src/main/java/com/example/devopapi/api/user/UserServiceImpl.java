@@ -25,18 +25,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserDto> findAllUser(Pageable pageable) {
-        // Assuming userMapper.select(pageable) returns a Page<Users>
-        Page<Users> userPage = userMapper.select(pageable);
-
-        // Convert Users to UserDto
-        List<UserDto> userDtos = userPage.getResult().stream()
-                .map(user -> userMapstruct.UserToUserDto(user))
+    public List<UserDto> findAllUser() {
+        List<UserDto> userDtoList = userMapper.select().stream()
+                .map(userMapstruct::UserToUserDto)
                 .collect(Collectors.toList());
-
-        // Return a new PageImpl containing UserDto objects
-        return null;
+        return userDtoList;
     }
+
+//    @Override
+//    public Page<UserDto> findAllUser(Pageable pageable) {
+//        // Assuming userMapper.select(pageable) returns a Page<Users>
+//        Page<Users> userPage = userMapper.select(pageable);
+//
+//        // Convert Users to UserDto
+//        List<UserDto> userDtos = userPage.getResult().stream()
+//                .map(user -> userMapstruct.UserToUserDto(user))
+//                .collect(Collectors.toList());
+//
+//        // Return a new PageImpl containing UserDto objects
+//        return null;
+//    }
 
     @Override
     public UserDto findUserById(Integer id) {

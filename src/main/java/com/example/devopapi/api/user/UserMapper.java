@@ -23,9 +23,12 @@ public interface UserMapper {
     })
     Optional<Users> selectById(@Param("id") Integer id);
 
+//    @SelectProvider(type = UserProvider.class, method = "buildSelectSql")
+//    @ResultMap("userResultMap")
+//    Page<Users> select(Pageable pageable);
+
     @SelectProvider(type = UserProvider.class, method = "buildSelectSql")
-    @ResultMap("userResultMap")
-    Page<Users> select(Pageable pageable);
+    List<Users> select();
 
     @Select("SELECT EXISTS(SELECT * FROM users WHERE id = #{id})")
     boolean exitsById(@Param("id") Integer id);

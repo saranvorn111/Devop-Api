@@ -32,11 +32,23 @@ public class UserController {
                 .build();
 
     }
+//    @GetMapping("")
+//    public BestRest<?> findAllUser(@RequestParam(name = "page", required = false, defaultValue = "1") long page,
+//                                   @RequestParam(name = "limit", required = false, defaultValue = "20") long limit){
+//        return null;
+//    }
+
     @GetMapping("")
-    public BestRest<?> findAllUser(@RequestParam(name = "page", required = false, defaultValue = "1") long page,
-                                   @RequestParam(name = "limit", required = false, defaultValue = "20") long limit){
-        return null;
+    public BestRest<?> findAllUser(){
+        return BestRest.builder()
+                .status(true)
+                .code(HttpStatus.OK.value())
+                .timestamp(LocalDateTime.now())
+                .message("User find success.")
+                .data(userService.findAllUser())
+                .build();
     }
+
     @GetMapping("/{id}")
     public BestRest<?> findUserById(@PathVariable Integer id){
         UserDto userDto = userService.findUserById(id);

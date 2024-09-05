@@ -19,6 +19,15 @@ public class UserProvider {
         }}.toString();
     }
 
+    public String buildSelectAllUser(){
+        return new SQL(){{
+            SELECT("*");
+            FROM(tableName);
+            WHERE("is_deleted = FALSE");
+
+        }}.toString();
+    }
+
     public String buildSelectById(){
         return new SQL(){{
             SELECT("*");
