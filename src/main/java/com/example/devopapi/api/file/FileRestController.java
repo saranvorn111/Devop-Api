@@ -3,10 +3,14 @@ package com.example.devopapi.api.file;
 import com.example.devopapi.api.base.BestRest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,6 +21,16 @@ import java.util.List;
 public class FileRestController {
 
     private final FileService fileService;
+
+    @GetMapping("/download/{fileName}")
+    public ResponseEntity<?> download(@PathVariable String fileName){
+        Resource resource = fileService.downloadFile(fileName);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(MediaType.APPLICATION_OCTET_STREAM_VALUE))
+                .header("Content-Disposition", "attachment; filename=" + resource.getFilename() + "\"")
+                .body(resource);
+
+    }
 
     @PostMapping("/single")
     public BestRest<?> uploadFileSingle(@RequestPart MultipartFile file) {
@@ -44,6 +58,7 @@ public class FileRestController {
                 .build();
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{fileName}")
     public String deleteFile(@PathVariable String fileName) {
         fileService.deletedFile(fileName);
@@ -63,7 +78,7 @@ public class FileRestController {
     }
 
     @GetMapping("/{fileName}")
-    public BestRest<?> findFileByName(@PathVariable String fileName) {
+    public BestRest<?> findFileByName(@PathVariable String fileName) throws IOException {
         FileDto fileDto = fileService.findFileByName(fileName);
         return BestRest.builder()
                 .status(true)
