@@ -1,9 +1,9 @@
 package com.example.devopapi.api.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.devopapi.api.auth.Role;
+import lombok.*;
+
+import java.util.List;
 
 
 @Getter
@@ -25,4 +25,7 @@ public class Users {
     private String password;
     private Boolean isVerified;
     private String verifiedCode;
+
+    //Role info
+    List<Role> roles;
 }

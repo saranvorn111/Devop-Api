@@ -22,7 +22,7 @@ public class UserController {
     @PostMapping
     public BestRest<?> insert(@RequestBody @Valid CreateUserDto createUserDto) {
         UserDto userDto = userService.createNewsUser(createUserDto);
-        //        log.info("User = {}", createUserDto);
+                log.info("User = {}", createUserDto);
         return BestRest.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())

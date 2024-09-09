@@ -1,18 +1,24 @@
 package com.example.devopapi.security;
 
 import com.example.devopapi.api.user.Users;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+@Getter
+@NoArgsConstructor
+@Setter
+@AllArgsConstructor
+@Builder
 public class CustomUserDetail implements UserDetails {
     private Users users;
 
     //role and permission
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return users.getRoles();
     }
 
     @Override
