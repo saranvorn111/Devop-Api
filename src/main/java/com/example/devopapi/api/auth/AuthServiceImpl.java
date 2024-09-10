@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,6 +35,22 @@ public class AuthServiceImpl implements AuthService {
     private final UserMapstruct userMapstruct;
     private final PasswordEncoder encoder;
     private final MailUtil mailUtil;
+
+    private final DaoAuthenticationProvider daoAuthenticationProvider;
+
+    @Override
+    public AuthDto login(LoginDto loginDto) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(loginDto.email(), loginDto.password());
+        authentication = daoAuthenticationProvider.authenticate(authentication);
+        log.info("User: {}", authentication);
+        log.info("Name: {}", authentication.getName());
+        log.info("Credentials: {}", authentication.getCredentials());
+
+        String basicAuthFormat = authentication.getName() + ":" + authentication.getCredentials();
+        String encoding = Base64.getEncoder().encodeToString(basicAuthFormat.getBytes());
+        log.info("Encoded: {}", encoding);
+        return new AuthDto(String.format("Basic %s", encoding));
+    }
 
     @Transactional
     @Override

@@ -40,4 +40,10 @@ public interface UserMapper {
     @UpdateProvider(type = UserProvider.class, method = "buildUpdateIsDeletedByIdSql")
     void updateIsDeletedById(@Param("id") Integer id, @Param("status") boolean status);
 
+    @Select("SELECT EXISTS(SELECT * FROM users WHERE email = #{email})")
+    boolean exitsByEmail(@Param("email") String email);
+
+    @Select("SELECT EXISTS(SELECT * FROM roles WHERE id = #{roleId})")
+    boolean checkRoleById(Integer roleId);
+
 }

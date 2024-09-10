@@ -17,6 +17,18 @@ public class AuthRestController {
 
     private final AuthService authService;
 
+    @PostMapping("/login")
+    public BestRest<?> login(@Valid @RequestBody LoginDto loginDto){
+        AuthDto authDto = authService.login(loginDto);
+        return BestRest.builder()
+                .status(true)
+                .code(HttpStatus.OK.value())
+                .message("You have been login successfully.")
+                .timestamp(LocalDateTime.now())
+                .data(authDto)
+                .build();
+    }
+
     @PostMapping("/register")
     public BestRest<?> register( @Valid @RequestBody RegisterAuthDto registerAuthDto){
         authService.register(registerAuthDto);

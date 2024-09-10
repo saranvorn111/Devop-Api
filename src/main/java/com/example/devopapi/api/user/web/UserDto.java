@@ -1,4 +1,4 @@
-package com.example.devopapi.api.user;
+package com.example.devopapi.api.user.web;
 
 import lombok.Builder;
 

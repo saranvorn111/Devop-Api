@@ -1,7 +1,8 @@
 package com.example.devopapi.api.user;
 
 import com.example.devopapi.api.auth.RegisterAuthDto;
-import org.apache.catalina.User;
+import com.example.devopapi.api.user.web.CreateUserDto;
+import com.example.devopapi.api.user.web.UserDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

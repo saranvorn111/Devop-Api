@@ -25,6 +25,9 @@ repositories {
 
 dependencies {
 
+    //passay dependency
+    implementation 'org.passay:passay:1.6.5'
+
     //pageHelper
     implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:2.1.0'
 

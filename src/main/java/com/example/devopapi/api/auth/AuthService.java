@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public interface AuthService {
 
+    AuthDto login(LoginDto loginDto);
+
     void register(RegisterAuthDto registerAuthDto);
 
     void verify(String email);

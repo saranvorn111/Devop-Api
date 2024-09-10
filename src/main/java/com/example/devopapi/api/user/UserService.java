@@ -1,8 +1,8 @@
 package com.example.devopapi.api.user;
 
-import com.github.pagehelper.Page;
+import com.example.devopapi.api.user.web.CreateUserDto;
+import com.example.devopapi.api.user.web.UserDto;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 public interface UserService {

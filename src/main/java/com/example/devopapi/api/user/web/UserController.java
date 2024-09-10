@@ -1,9 +1,11 @@
-package com.example.devopapi.api.user;
+package com.example.devopapi.api.user.web;
 
 import com.example.devopapi.api.base.BestRest;
+import com.example.devopapi.api.user.UserService;
+import com.example.devopapi.api.user.web.CreateUserDto;
+import com.example.devopapi.api.user.web.IsDeletedDto;
+import com.example.devopapi.api.user.web.UserDto;
 import jakarta.validation.Valid;
-import lombok.Builder;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
